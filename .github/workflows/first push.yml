@@ -1,0 +1,16 @@
+name: first push
+on:
+  workflow_dispatch:
+
+jobs:
+  Tarea1:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Say Hola Agus
+        run: |
+          echo "Hi my First Push - Agustin Lopez Parra"
+          echo "My ID 1222100504"
+          echo "Fecha de ejecución:"
+          date
+
