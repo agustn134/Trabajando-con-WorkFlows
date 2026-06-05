@@ -11,4 +11,13 @@ jobs:
       - name: Say Hola Agus
         run: echo "hello world"
 
+      - name: Fecha
+        run: date
+
+      - name: ls
+        run: ls
+        
+      - name: cd
+        run: cd
+
         
