@@ -1,5 +1,6 @@
 name: first push
 on:
+  push: 
   workflow_dispatch:
 
 jobs:
@@ -7,10 +8,14 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Say Hola Agus
+      - name: Desplegar datos del push
         run: |
-          echo "Hi my First Push - Agustin Lopez Parra"
+          echo "Mensaje del commit: ${{ github.event.head_commit.message }}"
+          echo "Autor: ${{ github.event.head_commit.author.name }} (<${{ github.event.head_commit.author.email }}>)"
+          echo "ID del commit: ${{ github.sha }}"
+          echo "URL del commit: ${{ github.event.head_commit.url }}"
           echo "My ID 1222100504"
+          echo "Rama: ${{ github.ref_name }}"
+          echo "Repositorio: ${{ github.repository }}"
           echo "Fecha de ejecución:"
           date
-
