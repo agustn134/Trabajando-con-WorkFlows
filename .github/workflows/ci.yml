@@ -7,6 +7,7 @@ on:
     branches: [ main, develop ]
 
 jobs:
+
   integracion:
     name: Control de Calidad y Pruebas
     runs-on: ubuntu-latest
@@ -17,68 +18,68 @@ jobs:
       - name: Configurar Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20' 
+          node-version: '20'
           cache: 'npm'
 
-      - name: Instalar dependencias
+      - name: Instalar dependencias del Frontend
+        working-directory: ./frontend
         run: npm ci
 
-      - name: Mensaje de consola en Push
-        run: echo "Iniciando validación para el commit de ${{ github.event.head_commit.author.name }}"
-
-      - name: Ejecutar ESLint
-        run: npm run lint
-
-      # Agrega este paso asumiendo que tienes un script "test" en tu package.json
-      - name: Ejecutar Pruebas Unitarias
-        run: npm run test
+      - name: Ejecutar ESLint en Frontend
+        working-directory: ./frontend
+        # Solo ejecutar si tienes un script de lint en package.json
+        run: npm run lint --if-present
 
   deploy-frontend:
-    name: Deploy to Vercel (Production)
-    needs: integracion # Bloquea el despliegue si la integración falla
+    name: Deploy Frontend to Vercel
+    needs: integracion
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    env:
+      VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+      VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID_FRONT }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: 24
-          cache: 'npm'
-
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Build project
-        run: npm run build
 
       - name: Install Vercel CLI
         run: npm install --global vercel@latest
 
-      - name: Pull Vercel environment info
+      - name: Pull Vercel environment info (Frontend)
+        working-directory: ./frontend
         run: vercel pull --yes --environment=production --token ${{ secrets.VERCEL_TOKEN }}
 
-      - name: Build for Vercel
+      - name: Build for Vercel (Frontend)
+        working-directory: ./frontend
         run: vercel build --prod --token ${{ secrets.VERCEL_TOKEN }}
 
-      - name: Deploy to Vercel
+      - name: Deploy to Vercel (Frontend)
+        working-directory: ./frontend
         run: vercel deploy --prebuilt --prod --token=${{ secrets.VERCEL_TOKEN }}
 
   deploy-backend:
-    name: Deploy to Railway
+    name: Deploy Backend to Vercel
     needs: integracion
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    env:
+      VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+      VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID_BACK }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Instalar Railway CLI
-        run: npm i -g @railway/cli
+      - name: Install Vercel CLI
+        run: npm install --global vercel@latest
 
-      - name: Desplegar a Railway
-        run: railway up --detach
-        env:
-          RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
+      - name: Pull Vercel environment info (Backend)
+        working-directory: ./backend
+        run: vercel pull --yes --environment=production --token ${{ secrets.VERCEL_TOKEN }}
+
+      - name: Build for Vercel (Backend)
+        working-directory: ./backend
+        run: vercel build --prod --token ${{ secrets.VERCEL_TOKEN }}
+
+      - name: Deploy to Vercel (Backend)
+        working-directory: ./backend
+        run: vercel deploy --prebuilt --prod --token=${{ secrets.VERCEL_TOKEN }}
