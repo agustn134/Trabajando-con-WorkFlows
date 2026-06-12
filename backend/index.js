@@ -12,7 +12,7 @@ if (process.env.NODE_ENV !== 'production') {
 
 // Ejemplo de modificación en el endpoint principal
 app.get('/', (req, res) => {
-    res.send('¡Hola! Backend funcionando. Hecho por Agustín López Parra - 122100504');
+    res.send('¡Hola! Backend funcionando. Hecho por Agustín López Parra - 122100504 --- Actualización para el PR del Desafío 2');
 });
 
 // O en el console.log de inicio del servidor
