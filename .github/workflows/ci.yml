@@ -70,6 +70,10 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
+      - name: Instalar dependencias del Backend
+        working-directory: ./backend
+        run: npm install
+
       - name: Install Vercel CLI
         run: npm install --global vercel@latest
 
