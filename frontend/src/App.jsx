@@ -25,7 +25,7 @@ function App() {
         <div>
           <h1>AGUSTIN LOPEZ PARRA </h1>
           <p>
-            Edit <code>src/App.jsx</code> and save to test <code>HMR</code>
+            Matrícula: 122100504 profesor: Gabriel Barronw
           </p>
         </div>
         <button

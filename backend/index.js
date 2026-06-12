@@ -2,7 +2,7 @@ const express = require('express');
 const app = express();
 
 app.get('/', (req, res) => {
-    res.send('¡Hola desde mi Backend en Vercel de AGUSTIN PARRA - 122100504!');
+    res.send('¡Hola desde mi Backend en Vercel de AGUSTIN PARRA - 122100504 profesor: Gabriel Barron!');
 });
 
 if (process.env.NODE_ENV !== 'production') {
