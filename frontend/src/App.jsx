@@ -9,6 +9,13 @@ function App() {
 
   return (
     <>
+
+      <header style={{ backgroundColor: '#282c34', color: 'white', padding: '20px', textAlign: 'center' }}>
+        <h1>Proyecto de Agustín López Parra</h1>
+        <p>Matrícula: 122100504</p>
+      </header>
+
+
       <section id="center">
         <div className="hero">
           <img src={heroImg} className="base" width="170" height="179" alt="" />
@@ -16,7 +23,7 @@ function App() {
           <img src={viteLogo} className="vite" alt="Vite logo" />
         </div>
         <div>
-          <h1>AGUSTIN LOPEZ PARRA -- CAMBIO</h1>
+          <h1>AGUSTIN LOPEZ PARRA </h1>
           <p>
             Edit <code>src/App.jsx</code> and save to test <code>HMR</code>
           </p>
