@@ -11,7 +11,7 @@ function App() {
     <>
 
       <header style={{ backgroundColor: '#282c34', color: 'white', padding: '20px', textAlign: 'center' }}>
-        <h1>Proyecto de Agustín López Parra</h1>
+        <h1>Frontend de Agustín López Parra</h1>
         <p>Matrícula: 122100504</p>
       </header>
 
